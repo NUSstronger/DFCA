@@ -4,40 +4,30 @@ This project uses two established 2D materials databases for training and evalua
 
 ---
 
-## C2DB (Computational 2D Materials Database)
 
-| Property | Value |
-|----------|-------|
-| **Name** | C2DB |
-| **Source** | Computational 2D Materials Database |
-| **URL** | https://www.2dhub.org/c2db/c2db.html |
-| **Institution** | Technical University of Denmark (DTU) |
+### C2DB
 
-### Download
+- **Name:** Computational 2D Materials Database (C2DB)
+- **Institution:** Technical University of Denmark (DTU)
+- **Official website:** https://www.2dhub.org/c2db/c2db.html
+- **Reference:** Haastrup et al., 2D Materials 5, 042002 (2018).
+- **DOI:** https://doi.org/10.1088/2053-1583/aacfc1
 
-```bash
-# Download C2DB dataset
-curl -O https://www.2dhub.org/c2db/c2db.tar.gz
-tar -xzf c2db.tar.gz
-```
+Dataset access and download availability should be checked
+through the official C2DB website.
 
----
+### 2DMatPedia
 
-## 2DMatPedia
+- **Name:** 2DMatPedia
+- **Source:** Computational database of 2D materials
+- **Institutions:** Multi-institutional research collaboration
+- **Original website:** http://www.2dmatpedia.org/
+- **Reference:** Zhou et al., Scientific Data 6, 86 (2019).
+- **DOI:** https://doi.org/10.1038/s41597-019-0097-3
 
-| Property | Value |
-|----------|-------|
-| **Name** | 2DMatPedia |
-| **Source** | 2DMatPedia Database |
-| **URL** | http://www.2dmatpedia.org/ |
-| **Institution** | Nanyang Technological University |
-
-### Download
-
-```bash
-# Download 2DMatPedia dataset
-curl -O http://www.2dmatpedia.org/download
-```
+The original publication describes dataset access through
+the project website and Figshare. Consult these sources
+for currently available data files.
 
 ---
 
