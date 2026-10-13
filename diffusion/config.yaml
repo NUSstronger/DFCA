@@ -1,0 +1,160 @@
+# DFCA Configuration - Single Unified Config
+# Extracted from: configs/train.yaml, generate.yaml, screening.yaml, dft_validation.yaml
+#
+# Purpose: Master configuration file for all DFCA workflows.
+# Sections are clearly labeled by workflow stage.
+#
+# Usage:
+#   Training:     PYTHONPATH=. python scripts/train.py --config configs/config.yaml
+#   Generation:   PYTHONPATH=. python scripts/generate.py --config configs/config.yaml
+#   Screening:    PYTHONPATH=. python scripts/screen.py --config configs/config.yaml
+#   DFT:         PYTHONPATH=. python scripts/dft_validate.py --config configs/config.yaml
+#
+# For workflow-specific overrides: python script.py --config configs/config.yaml --key value
+
+# =============================================================================
+# COMMON SETTINGS (shared across all workflows)
+# =============================================================================
+common:
+  seed: 42
+  device: cuda
+  data_dir: ./Data
+
+# =============================================================================
+# DATA CONFIGURATION
+# =============================================================================
+data:
+  max_atoms: 20                              # Maximum atoms per structure
+  max_length: 46.7425                         # Lattice normalization constant
+  batch_size: 16
+  num_workers: 4
+
+# =============================================================================
+# MODEL ARCHITECTURE (shared by train & generate)
+# =============================================================================
+model:
+  hidden_size: 512
+  depth: 18
+  num_heads: 8
+  mlp_ratio: 4.0
+  dropout: 0.0
+
+# =============================================================================
+# DIFFUSION PROCESS
+# =============================================================================
+diffusion:
+  steps: 1000                               # DDPM timesteps
+  beta_schedule: linear
+  z_noise_scale: 0.113001                   # Atom coordinate noise std
+  lattice_c_noise_scale: 0.340659            # Lattice c-axis noise std
+
+# =============================================================================
+# OPTIMIZER & TRAINING
+# =============================================================================
+training:
+  learning_rate: 0.000203886
+  weight_decay: 0.0468414
+  min_learning_rate: 1.0e-6
+  warmup_epochs: 5
+  clip_grad: 2.803345
+  epochs: 100
+  val_interval: 1
+
+  # EMA settings
+  ema_decay: 0.9999
+  ema_start_step: 1000
+
+  # Checkpointing
+  save_interval: 5
+  save_top_k: 3
+
+# =============================================================================
+# PHYSICAL CONSTRAINTS (training only)
+# =============================================================================
+constraints:
+  enabled: true
+  lattice_loss_z_weight: 0.706323
+  decay_mid: 0.224396
+  decay_late: 0.122513
+  rowcol_temperature: 0.0604
+  rowcol_active_threshold: 0.403809
+  min_angle_deg: 60.0
+  max_angle_deg: 125.0
+  slab_center: 0.5
+  min_vacuum_thickness: 15.0
+  slab_spread_max: 3.0
+  c_length_min: 10.0
+  c_length_max: 50.0
+
+# =============================================================================
+# GENERATION SETTINGS
+# =============================================================================
+generation:
+  num_samples: 1000
+  output_dir: ./generated_crystals
+  element_sigma: 0.05
+  min_valid_element_prob: 0.001
+  slab_half_width: 0.15
+  max_unique_elements: 4
+
+  # Forbidden elements (atomic numbers)
+  forbid_atomic_numbers: [84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94]
+
+# =============================================================================
+# SCREENING PIPELINE
+# =============================================================================
+screening:
+  input_dir: ./generated_crystals
+  output_dir: ./dft_ready
+  mace_model: medium
+
+  # S1: Geometry
+  vacuum_min_angstrom: 5.0
+  slab_thickness_max: 15.0
+  min_bond_distance: 0.4
+
+  # S2: Symmetry
+  symprec: 0.1
+  ltol: 0.30
+  stol: 0.30
+  angle_tol: 10.0
+
+  # S3: Deduplication
+  max_lat_diff: 0.5
+  max_pos_diff: 0.3
+
+  # S4: Relaxation
+  relax_fmax: 0.05
+  relax_steps: 400
+
+  # S5: Phonon
+  skip_phonon: false
+  supercell: [3, 3, 1]
+  displacement: 0.03
+  mesh: [20, 20, 1]
+
+# =============================================================================
+# DFT VALIDATION (GPAW)
+# =============================================================================
+dft:
+  gpaw_encut: 550                            # eV
+  gpaw_xc: PBE
+  fermi_smearing: 0.05                        # eV
+  dk_per_ang: 0.03                           # Å⁻¹
+  maxiter: 500
+
+  # Relaxation
+  relax_fmax: 0.01                           # eV/Å
+  relax_steps: 200
+  optimizer: FIRE
+
+  # Phonon
+  phonon_supercell: [3, 3, 1]
+  phonon_displacement: 0.01                 # Å
+
+  # Elastic
+  elastic_delta: 0.005
+  elastic_fmax: 0.01                         # eV/Å
+
+  # Parallel
+  max_cores: 32

@@ -1,0 +1,54 @@
+# DFCA Package Configuration
+# Minimal editable installation support
+
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "dfca"
+version = "0.1.0"
+description = "DFCA: An Anisotropy-Aware Diffusion Framework for Two-Dimensional Crystal Generation"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "SEE LICENSE FILE"}
+authors = [
+    {name = "DFCA Authors"}
+]
+keywords = ["crystal", "diffusion", "2D materials", "machine learning", "materials science"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Science/Research",
+    "Programming Language :: Python :: 3.10",
+]
+
+# Minimal dependencies - full environment setup via environment YAML files
+dependencies = [
+    "numpy>=1.24",
+    "pyyaml>=6.0",
+]
+
+[project.optional-dependencies]
+ml = [
+    "torch>=2.0",
+    "timm",
+    "pymatgen>=2023",
+    "e3nn>=0.5",
+]
+dft = [
+    "gpaw>=24.6",
+    "ase>=3.22",
+    "phonopy>=2.18",
+    "mpi4py>=3.1",
+]
+mace = [
+    "mace-torch>=0.3",
+]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["dfca*", "diffusion*"]
+
+[tool.setuptools.package-data]
+dfca = ["py.typed"]
+diffusion = ["py.typed"]

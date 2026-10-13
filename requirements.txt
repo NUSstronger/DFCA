@@ -1,0 +1,41 @@
+# DFCA Dependencies
+# pip install -r requirements.txt
+
+# PyTorch (GPU)
+torch>=2.0
+torchvision
+torchaudio
+
+# Scientific computing
+numpy>=1.24
+scipy>=1.10
+pandas>=2.0
+matplotlib>=3.7
+
+# Materials science
+pymatgen>=2023
+monty>=2023
+spglib
+sympy
+ase>=3.22
+
+# Phonon calculations
+phonopy>=2.18
+seekpath>=2.1
+
+# Data processing
+h5py>=3.8
+pyyaml>=6.0
+tqdm>=4.65
+
+# ML potentials
+mace-torch>=0.3
+e3nn>=0.5
+timm
+
+# Testing
+pytest>=7.0
+pytest-cov
+
+# DFT (optional)
+# gpaw>=24.6  # Requires special installation
