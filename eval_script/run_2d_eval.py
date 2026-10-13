@@ -16,9 +16,9 @@ import shutil
 from pathlib import Path
 from typing import Any, Dict
 
-from eval_2d_core import evaluate_core
-from eval_2d_distribution import evaluate_distribution
-from eval_2d_utils import (
+from eval_script.eval_2d_core import evaluate_core
+from eval_script.eval_2d_distribution import evaluate_distribution
+from eval_script.eval_2d_utils import (
     ensure_dir,
     merge_summaries,
     paper_row,

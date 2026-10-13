@@ -12,7 +12,7 @@ import numpy as np
 import pandas as pd
 from pymatgen.core import Structure
 
-from eval_2d_utils import ensure_dir, infer_run_label, paper_row, percentage, write_csv, write_json
+from eval_script.eval_2d_utils import ensure_dir, infer_run_label, paper_row, percentage, write_csv, write_json
 
 
 @contextlib.contextmanager

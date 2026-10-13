@@ -16,7 +16,7 @@ from pathlib import Path
 
 import pandas as pd
 
-from eval_2d_compare_utils import (
+from eval_script.eval_2d_compare_utils import (
     compare_runs,
     ensure_dir,
     load_summary,

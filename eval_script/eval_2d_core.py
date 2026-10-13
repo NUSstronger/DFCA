@@ -7,7 +7,7 @@ from typing import Any, Dict, Optional, Tuple
 import pandas as pd
 from pymatgen.analysis.structure_matcher import StructureMatcher
 
-from eval_2d_utils import (
+from eval_script.eval_2d_utils import (
     GeometryMetrics,
     clean_details_for_export,
     composition_validity,

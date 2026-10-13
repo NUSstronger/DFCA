@@ -7,7 +7,7 @@ from typing import Any, Dict, Optional
 import numpy as np
 import pandas as pd
 
-from eval_2d_utils import (
+from eval_script.eval_2d_utils import (
     ensure_dir,
     infer_run_label,
     inverse_distance_score,
