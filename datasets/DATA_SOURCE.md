@@ -57,12 +57,17 @@ If you use these datasets, please cite the original sources:
 }
 
 # 2DMatPedia
-@article{zhou2021two,
-  title={Two-dimensional inorganic piezoelectric materials for mechanical energy harvesting},
-  author={Zhou, Yao and others},
-  journal={Nature Communications},
-  year={2021}
+
+@article{zhou2019two,
+  author = {Zhou, Jun and Shen, Lei and Costa, Miguel Dias and Persson, Kristin A. and Ong, Shyue Ping and Huck, Patrick and Lu, Yunhao and Ma, Xiaoyang and Chen, Yiming and Tang, Hanmei and Feng, Yuan Ping},
+  title = {{2DMatPedia}, an open computational database of two-dimensional materials from top-down and bottom-up approaches},
+  journal = {Scientific Data},
+  volume = {6},
+  pages = {86},
+  year = {2019},
+  doi = {10.1038/s41597-019-0097-3}
 }
+
 ```
 
 ---
