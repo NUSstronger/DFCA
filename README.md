@@ -118,6 +118,16 @@ PYTHONPATH=. python screen.py \
 
 The training dataset contains curated 2D materials from established databases. See [`datasets/DATA_SOURCE.md`](datasets/DATA_SOURCE.md) for download instructions and citations.
 
+
+## Related Work
+
+- [CrystalDiT](https://doi.org/10.1609/aaai.v40i2.37121) – Diffusion Transformer for crystal generation; the foundation architecture extended by DFCA.
+- [DiffCSP](https://arxiv.org/abs/2309.04475) – Joint equivariant diffusion for crystal structure prediction.
+- [DiffCSP++](https://arxiv.org/search/?query=DiffCSP%2B%2B&searchtype=all) – Symmetry-aware crystal generation using diffusion models.
+- [FlowMM](https://proceedings.mlr.press/v235/miller24a.html) – Riemannian flow matching for crystal generation.
+- [CDVAE](https://openreview.net/forum?id=03RLpj-tc_) – Crystal diffusion variational autoencoder for periodic materials.
+
+
 ## License
 
 See [`LICENSE`](LICENSE)
