@@ -31,6 +31,11 @@ for currently available data files.
 
 ---
 
+
+### Merged-2D Dataset Preparation
+
+The C2DB and 2DMatPedia datasets were merged and filtered to remove duplicate structures, entries with inconsistent labels, and records with missing metadata, reducing the dataset from 18,147 to 17,654 structures (97.28% retained). The filtered dataset was divided into 14,049 training, 1,798 validation, and 1,807 test structures.
+
 ## Citation
 
 If you use these datasets, please cite the original sources:
