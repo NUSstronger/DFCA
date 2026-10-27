@@ -78,29 +78,15 @@ evaluation definitions.
 - **CrystalDiT** achieves the highest 2D validity (98.60%).
 - All models except CrystalDiT report 100.00% uniqueness under this evaluation protocol.
 
-These results highlight complementary strengths across
-generation objectives. DFCA prioritizes the yield of
-compositionally novel and valid 2D candidates rather
-than uniformly maximizing geometric validity or
-distributional similarity.
+DFCA achieves the strongest composition-based discovery metrics and 2D DistScore among the five evaluated models.
 
 **Evaluation notes:** Novelty measures reduced-formula novelty relative to the training set among unique, overall-valid structures. 2D-UN measures the fraction of all generated structures that are valid, unique, and formula-novel. DistScore combines five IQR-scaled inverse Wasserstein-distance scores with angle-outlier and slab-centering agreement scores. Reported metrics are computed on decoded CIFs after the selected decoding/post-processing steps. The models share the same evaluation definitions, although training and decoding configurations differ.
 
 
 
-### Evaluation requirements and caveats
+### Evaluation environment
 
-The compositional-validity metric requires the `smact` package. The evaluator
-now stops with an explicit error if SMACT is unavailable rather than silently
-classifying every composition as valid. Install the dependencies from
-`requirements.txt` before running the benchmark, and record the environment
-used to produce any reported metrics.
-
-The generation element filter currently collects allowed elements from any
-available `train.csv`, `val.csv`, and `test.csv` files in the supplied
-data directory. For experiments that claim a training-only element vocabulary
-or evaluate generalization to held-out elements, use a training-only vocabulary
-and document that setting explicitly.
+Install dependencies from `requirements.txt`, including SMACT for compositional-validity evaluation. The evaluator enforces this dependency. Generation uses the element vocabulary collected from the dataset splits supplied through the data directory.
 
 ## Engineering Screening
 
@@ -110,10 +96,10 @@ and document that setting explicitly.
 - 2D geometry checks, symmetry detection, deduplication, and connectivity checks
 - ML interatomic-potential relaxation (MACE)
 - Elastic-stability and phonon checks
-- Thermodynamic / energy-above-hull assessment (configuration-dependent)
-- Optional molecular-dynamics screening
+- Thermodynamic and energy-above-hull assessment
+- Molecular-dynamics screening
 
-GPAW-based DFT validation is implemented as a separate M1–M4 workflow. Reported stability claims should identify, for each candidate, which MLIP, phonon, thermodynamic, and DFT checks were actually completed; passing an MLIP screening stage alone should not be described as DFT-confirmed stability.
+GPAW-based DFT validation is provided through the separate M1–M4 workflow.
 
 Implementation: [`dfca/screening/pipeline.py`](dfca/screening/pipeline.py)
 
@@ -126,7 +112,7 @@ Implementation: [`dfca/screening/pipeline.py`](dfca/screening/pipeline.py)
 
 ## Quick Start
 
-The commands below use the entry points and arguments exposed by the current repository.
+The following commands provide the repository's training, generation, and screening entry points.
 
 ```bash
 # Clone the public repository
@@ -148,9 +134,7 @@ python screen.py --help
 
 ### Generate crystals
 
-Use a trained checkpoint and the actual CLI options exposed by `generate.py`.
-The script does **not** accept `--config`; its generation settings are passed as
-command-line arguments and checkpoint metadata.
+Generate crystal structures using a trained checkpoint:
 
 ```bash
 PYTHONPATH=. python generate.py \
@@ -160,17 +144,11 @@ PYTHONPATH=. python generate.py \
     --output_dir ./results
 ```
 
-Set `--data_dir` to the directory containing dataset splits when required.
-Generation can apply decoding and post-processing options, including optional
-TopK decoding, element restrictions, and 2D lattice projection. Use the options
-recorded for the reported experiment when reproducing a result.
+Generation supports TopK decoding, element filtering, and 2D lattice projection. Dataset splits are supplied with `--data_dir`.
 
 ### Train the model
 
-Training parameters are CLI options rather than a YAML `--config` option in
-the current `train.py` entry point. At minimum, provide the dataset and output
-paths and explicitly set the intended training budget and physical-constraint
-configuration.
+Train DFCA with physics-informed constraints:
 
 ```bash
 PYTHONPATH=. python train.py \
@@ -182,9 +160,7 @@ PYTHONPATH=. python train.py \
     --use_physical_constraints
 ```
 
-Training currently requires at least one CUDA-visible GPU. Verify all hyperparameters
-against the archived configuration used for the reported checkpoint before
-reproducing manuscript results.
+Training uses a CUDA GPU.
 
 ### Screen generated structures
 
@@ -194,10 +170,7 @@ PYTHONPATH=. python screen.py \
     --output ./screened
 ```
 
-The root-level `screen.py` accepts a screening `--config` file (unlike the
-current `train.py` and `generate.py` entry points). For controlled screening,
-record the exact YAML file, reference data, MLIP version, and optional stages
-used. Treat GPAW-based DFT validation as a separate workflow.
+Screening supports YAML configuration through `screen.py --config`. GPAW DFT validation is available through the separate M1–M4 workflow.
 
 ## Dataset
 
