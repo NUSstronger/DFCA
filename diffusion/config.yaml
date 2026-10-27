@@ -1,17 +1,16 @@
-# DFCA Configuration - Single Unified Config
-# Extracted from: configs/train.yaml, generate.yaml, screening.yaml, dft_validation.yaml
+# DFCA reference configuration snapshot.
 #
-# Purpose: Master configuration file for all DFCA workflows.
-# Sections are clearly labeled by workflow stage.
+# IMPORTANT:
+# The current root-level train.py and generate.py entry points do not load this
+# file via a --config argument. Their runtime settings are parsed from CLI args
+# (and checkpoint metadata for generation). The root-level screen.py does support
+# --config for screening only. The values below document a combined set of
+# workflow settings; do not assume every section is automatically consumed by
+# every CLI entry point.
 #
-# Usage:
-#   Training:     PYTHONPATH=. python scripts/train.py --config configs/config.yaml
-#   Generation:   PYTHONPATH=. python scripts/generate.py --config configs/config.yaml
-#   Screening:    PYTHONPATH=. python scripts/screen.py --config configs/config.yaml
-#   DFT:         PYTHONPATH=. python scripts/dft_validate.py --config configs/config.yaml
+# For paper reproduction, use the exact archived command line and configuration
+# that generated the reported checkpoint/results.
 #
-# For workflow-specific overrides: python script.py --config configs/config.yaml --key value
-
 # =============================================================================
 # COMMON SETTINGS (shared across all workflows)
 # =============================================================================

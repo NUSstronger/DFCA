@@ -301,7 +301,11 @@ def composition_validity(structure: Structure) -> bool:
     Returns True if SMACT is not available.
     """
     if not HAS_SMACT:
-        return True
+        raise ImportError(
+            "SMACT is required for compositional-validity evaluation. "
+            "Install the project's requirements before running the benchmark; "
+            "the evaluator must not silently mark every composition as valid."
+        )
 
     comp = structure.composition
     elements = [str(el) for el in comp.elements]

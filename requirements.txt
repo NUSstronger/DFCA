@@ -13,6 +13,7 @@ pandas>=2.0
 matplotlib>=3.7
 
 # Materials science
+smact
 pymatgen>=2023
 monty>=2023
 spglib

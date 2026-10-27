@@ -1,0 +1,22 @@
+# Python bytecode and caches
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Local environment/configuration
+.env
+.env.*
+!.env.example
+
+# Model checkpoints and generated outputs
+*.pt
+*.pth
+*.ckpt
+generated_crystals/
+results/
+output/
